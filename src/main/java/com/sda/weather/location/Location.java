@@ -2,11 +2,7 @@ package com.sda.weather.location;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.Instant;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -14,27 +10,19 @@ import java.time.Instant;
 public class Location {
 
     @Id
-    @Column(name = "id", nullable = false) // todo you can get rid of these properties
-    // todo generation strategy
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String locality;
 
-    private String coords; // todo change to specific fields (longitude and latitude)
+    private Float longitude;
 
-    @Column(nullable = false) // todo are you sure?
-    private String region;
+    private Float latitude;
 
+    @Column(nullable = false)
     private String country;
 
-    private Instant createdDate; // todo this is unnecessary
+    private String region;
 
-    public Long getId() { // todo you can use the Lombook
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

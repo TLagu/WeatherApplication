@@ -5,12 +5,12 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/weather?currentSchema=hibernate</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/weather?currentSchema=weather</property>
         <property name="connection.username">weather</property>
         <property name="connection.password">weather</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL81Dialect</property>
         <!-- DB schema will be updated if needed -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
