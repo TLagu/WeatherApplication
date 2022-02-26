@@ -2,28 +2,29 @@ package com.sda.weather.location;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class LocationService {
+
     private final LocationRepository locationRepository;
 
     Location createLocation(String locality, String longitude, String latitude, String country, String region) {
-        if (locality == null || locality.isBlank()) {
-            throw new IllegalArgumentException("Miejscowość jest pusta.");
-        }
-        float lon;
-        try {
-            lon = Float.parseFloat(longitude);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Niepoprawna wartość długości geograficznej.");
-        }
-        float lat;
-        try {
-            lat = Float.parseFloat(latitude);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Niepoprawna wartość szerokości geograficznej.");
-        }
-        if (country == null || country.isBlank()) {
-            throw new IllegalArgumentException("Kraj jest pusty.");
+        // locality
+        checkStringIsEmpty(locality, "Miejscowość jest pusta.");
+        locality = locality.trim();
+        // longitude
+        float lon = convertToFloat(longitude, "Niepoprawna wartość długości geograficznej.");
+        checkRangeValue(lon, -180, 180, "Wartość długości geograficznej jest spoza zakresu <-180, 180>.");
+        // latitude
+        float lat = convertToFloat(latitude, "Niepoprawna wartość szerokości geograficznej.");
+        checkRangeValue(lat, -90, 90, "Wartość szerokości geograficznej jest spoza zakresu <-180, 180>.");
+        // country
+        checkStringIsEmpty(country, "Kraj jest pusty.");
+        country = country.trim();
+        // region
+        if (region != null) {
+            region = region.trim();
         }
 
         Location location = new Location();
@@ -35,5 +36,29 @@ public class LocationService {
 
         // data access layer
         return locationRepository.save(location);
+    }
+
+    public List<Location> getLocations() {
+        return locationRepository.findAll();
+    }
+
+    private float convertToFloat(String value, String errorMessage) {
+        try {
+            return Float.parseFloat(value);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    private void checkRangeValue(float value, float min, float max, String errorMessage) {
+        if (value < min || max < value) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    private void checkStringIsEmpty(String value, String errorMessage) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 }

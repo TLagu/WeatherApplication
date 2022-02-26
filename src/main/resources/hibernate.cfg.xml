@@ -10,8 +10,8 @@
         <property name="connection.password">weather</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL81Dialect</property>
         <!-- DB schema will be updated if needed -->
-        <property name="hbm2ddl.auto">create</property>
-        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
+        <property name="show_sql">false</property>
         <property name="format_sql">true</property>
 
         <mapping class="com.sda.weather.location.Location"/>
