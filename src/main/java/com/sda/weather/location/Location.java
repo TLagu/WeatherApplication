@@ -12,23 +12,25 @@ import java.time.Instant;
 @Entity
 @Table(name = "location")
 public class Location {
+
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false) // todo you can get rid of these properties
+    // todo generation strategy
     private Long id;
 
     @Column(nullable = false)
     private String locality;
 
-    private String coords;
+    private String coords; // todo change to specific fields (longitude and latitude)
 
-    @Column(nullable = false)
+    @Column(nullable = false) // todo are you sure?
     private String region;
 
     private String country;
 
-    private Instant createdDate;
+    private Instant createdDate; // todo this is unnecessary
 
-    public Long getId() {
+    public Long getId() { // todo you can use the Lombook
         return id;
     }
 
