@@ -22,6 +22,7 @@ public class UserInterface {
             System.out.println("1. Dodać nową lokalizację do bazy");
             System.out.println("2. Wyświetl wszystkie lokalizacje z bazy");
             System.out.println("3. Pobierz dane pogodowe");
+            System.out.println("4. hehe");
             System.out.println("0. Zamknij aplikację");
 
             int option = scanner.nextInt();

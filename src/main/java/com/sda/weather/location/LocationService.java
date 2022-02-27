@@ -10,23 +10,13 @@ public class LocationService {
         if (locality == null || locality.isBlank()) {
             throw new IllegalArgumentException("Miejscowość jest pusta.");
         }
-        float lon;
-        try {
-            lon = Float.parseFloat(longitude);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Niepoprawna wartość długości geograficznej.");
-        }
-        float lat;
-        try {
-            lat = Float.parseFloat(latitude);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Niepoprawna wartość szerokości geograficznej.");
-        }
+        var lon = parseToFloat(longitude, "Niepoprawna wartość długości geograficznej.");
+        var lat = parseToFloat(latitude, "Niepoprawna wartość szerokości geograficznej.");
         if (country == null || country.isBlank()) {
             throw new IllegalArgumentException("Kraj jest pusty.");
         }
 
-        Location location = new Location();
+        var location = new Location();
         location.setLocality(locality);
         location.setLongitude(lon);
         location.setLatitude(lat);
@@ -35,5 +25,17 @@ public class LocationService {
 
         // data access layer
         return locationRepository.save(location);
+    }
+
+    private float parseToFloat(String value, String exceptionMessage) {
+        try {
+            return Float.parseFloat(value);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(exceptionMessage);
+        }
+    }
+
+    void dummyMethod() {
+        System.out.println(1);
     }
 }
