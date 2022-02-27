@@ -22,7 +22,6 @@ public class UserInterface {
             System.out.println("1. Dodać nową lokalizację do bazy");
             System.out.println("2. Wyświetl wszystkie lokalizacje z bazy");
             System.out.println("3. Pobierz dane pogodowe");
-            System.out.println("4. hehe");
             System.out.println("0. Zamknij aplikację");
 
             int option = scanner.nextInt();
@@ -31,6 +30,8 @@ public class UserInterface {
                 case 1:
                     createLocation();
                     break;
+                case 2:
+                    readLocations();
                 case 0:
                     return;
             }
@@ -45,9 +46,9 @@ public class UserInterface {
         String region = scanner.nextLine();
         System.out.println("Podaj kraj:");
         String country = scanner.nextLine();
-        System.out.println("Podaj szerokość geograficzną (-90 -> S, 90 -> N):");
+        System.out.println("Podaj długość geograficzną (-180 -> W, 180 -> E):");
         String longitude = scanner.nextLine();
-        System.out.println("Podaj szerokość geograficzną (-180 -> W, 180 -> E):");
+        System.out.println("Podaj szerokość geograficzną (-90 -> S, 90 -> N):");
         String latitude = scanner.nextLine();
         // POST: /location
         String request = String.format("{\"locality\":\"%s\",\"region\":\"%s\",\"country\":\"%s\",\"longitude\":\"%s\",\"latitude\":\"%s\"}",
@@ -56,4 +57,10 @@ public class UserInterface {
         String response = locationController.createLocation(request);
         System.out.println("Odpowiedz z serwera: " + response);
     }
+
+    private void readLocations() {
+        String response = locationController.getLocations();
+        System.out.println("Odpowiedz z serwera: " + response);
+    }
+
 }

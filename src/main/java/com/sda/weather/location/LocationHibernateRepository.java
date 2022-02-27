@@ -1,11 +1,11 @@
-package location;
+package com.sda.weather.location;
 
-import com.sda.weather.location.Location;
-import com.sda.weather.location.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 public class LocationHibernateRepository implements LocationRepository {
@@ -20,5 +20,15 @@ public class LocationHibernateRepository implements LocationRepository {
         transaction.commit();
         session.close();
         return location;
+    }
+
+    @Override
+    public List<Location> findAll() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Location> locations = session.createQuery("FROM Location e", Location.class).getResultList();
+        transaction.commit();
+        session.close();
+        return locations;
     }
 }

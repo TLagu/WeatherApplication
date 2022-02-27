@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sda.weather.location.LocationController;
 import com.sda.weather.location.LocationRepository;
 import com.sda.weather.location.LocationService;
-import location.LocationHibernateRepository;
+import com.sda.weather.location.LocationHibernateRepository;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -13,7 +13,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Application {
     public static void main(String[] args) {
-        System.out.println("Michal tu byl");
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
                 .build();
