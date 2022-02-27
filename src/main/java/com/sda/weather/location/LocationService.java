@@ -27,7 +27,7 @@ public class LocationService {
             region = region.trim();
         }
 
-        Location location = new Location();
+        var location = new Location();
         location.setLocality(locality);
         location.setLongitude(lon);
         location.setLatitude(lat);
