@@ -3,6 +3,7 @@ package com.sda.weather.location;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class LocationService {
@@ -40,6 +41,14 @@ public class LocationService {
 
     public List<Location> getLocations() {
         return locationRepository.findAll();
+    }
+
+    public Location getLocation(long index) {
+        Optional<Location> location = locationRepository.findById(index);
+        if (location.isEmpty()) {
+            throw new IllegalArgumentException("Nie znaleziono miejscowości.");
+        }
+        return location.get();
     }
 
     private float convertToFloat(String value, String errorMessage) {
