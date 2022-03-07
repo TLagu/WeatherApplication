@@ -23,9 +23,10 @@ public class UserInterface {
         while (true) {
             System.out.println("Witaj w aplikacji pogodowej, co chcesz zrobić?");
             System.out.println("1. Dodać nową lokalizację do bazy");
-            System.out.println("2. Wyświetl wszystkie lokalizacje z bazy");
-            System.out.println("3. Pobierz jedną z lokalizacji");
-            System.out.println("4. Pobierz dane pogodowe");
+            System.out.println("2. Wyświetl wszystkie lokalizacje");
+            System.out.println("3. Wyświetl jedną z lokalizacji");
+            System.out.println("4. Pobierz dane pogodowe dla jednej lokalizacji");
+            System.out.println("5. Pobierz dane pogodowe dla wszystkich lokalizacji");
             System.out.println("0. Zamknij aplikację");
 
             int option = scanner.nextInt();
@@ -41,7 +42,10 @@ public class UserInterface {
                     readLocation();
                     break;
                 case 4:
-                    getWeather();
+                    getForecast();
+                    break;
+                case 5:
+                    getAllForecasts();
                     break;
                 case 0:
                     return;
@@ -81,7 +85,7 @@ public class UserInterface {
         System.out.println("Odpowiedz z serwera: " + response);
     }
 
-    private void getWeather() {
+    private void getForecast() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj numer lokalizacji:");
         long locationId = scanner.nextInt();
@@ -90,4 +94,13 @@ public class UserInterface {
         String response = forecastController.getForecast(locationId, period);
         System.out.println("Odpowiedz z serwera: " + response);
     }
+
+    private void getAllForecasts() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj na kiedy pogoda (w dniach od dzisiaj, zakres to 0 - 5 dni):");
+        int period  = scanner.nextInt();
+        String response = forecastController.getAllForecasts(period);
+        System.out.println("Odpowiedz z serwera: " + response);
+    }
+
 }

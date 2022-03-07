@@ -39,16 +39,16 @@ public class LocationService {
         return locationRepository.save(location);
     }
 
-    public List<Location> getLocations() {
-        return locationRepository.findAll();
-    }
-
     public Location getLocation(long index) {
         Optional<Location> location = locationRepository.findById(index);
         if (location.isEmpty()) {
             throw new IllegalArgumentException("Nie znaleziono miejscowości.");
         }
         return location.get();
+    }
+
+    public List<Location> getLocations() {
+        return locationRepository.findAll();
     }
 
     private float convertToFloat(String value, String errorMessage) {

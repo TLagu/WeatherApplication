@@ -12,7 +12,6 @@ public class LocationController {
     // dependency inversion
     private final LocationService locationService;
     private final ObjectMapper objectMapper;
-    private final String api_key = "yK1gS4IEezxOETfYNZeuoqoxURQ160Oy";
 
     // POST: /location (endpoint API)
     public String createLocation(String data) {
