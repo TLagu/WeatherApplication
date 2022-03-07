@@ -1,14 +1,15 @@
 package com.sda.weather.location;
 
+import com.sda.weather.forecast.Forecast;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "location")
@@ -31,6 +32,9 @@ public class Location {
     private String country;
 
     private String region;
+
+    @OneToMany(mappedBy = "location")
+    private List<Forecast> forecasts;
 
     @Override
     public boolean equals(Object o) {

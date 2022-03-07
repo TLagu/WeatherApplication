@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class LocationHibernateRepository implements LocationRepository {
@@ -30,5 +31,15 @@ public class LocationHibernateRepository implements LocationRepository {
         transaction.commit();
         session.close();
         return locations;
+    }
+
+    @Override
+    public Optional<Location> findById(long index) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<Location> location = Optional.ofNullable(session.get(Location.class, index));
+        transaction.commit();
+        session.close();
+        return location;
     }
 }

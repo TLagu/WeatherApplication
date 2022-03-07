@@ -1,5 +1,6 @@
 package com.sda.weather.location;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +12,7 @@ public class LocationController {
     // dependency inversion
     private final LocationService locationService;
     private final ObjectMapper objectMapper;
+    private final String api_key = "yK1gS4IEezxOETfYNZeuoqoxURQ160Oy";
 
     // POST: /location (endpoint API)
     public String createLocation(String data) {
@@ -38,14 +40,25 @@ public class LocationController {
     // GET: /location (endpoint API)
     public String getLocations() {
         try {
-            List<Location> entries = locationService.getLocations();
-            List<LocationDTO> mappedEntries = entries.stream()
+            List<Location> locations = locationService.getLocations();
+            List<LocationDTO> mappedLocations = locations.stream()
                     .map(this::mapToLocationDTO)
                     .collect(Collectors.toList());
 
-            return objectMapper.writeValueAsString(mappedEntries);
+            return objectMapper.writeValueAsString(mappedLocations);
         } catch (Exception e) {
             return String.format("{\"message\":\"%s\"}", e.getMessage());                                       // exception handling   Exception -> JSON
+        }
+    }
+
+    // GET: /location/id (endpoint API)
+    public String getLocation(long index) {
+        Location location = locationService.getLocation(index);
+        LocationDTO locationDTO = mapToLocationDTO(location);
+        try {
+            return objectMapper.writeValueAsString(locationDTO);
+        } catch (JsonProcessingException e) {
+            return String.format("{\"message\":\"%s\"}", e.getMessage());
         }
     }
 
